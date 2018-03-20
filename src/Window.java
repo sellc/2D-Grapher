@@ -6,10 +6,10 @@ import javax.swing.JFrame;
 
 public class Window {
 	
-	JFrame frame;
-	LoadPanel loadImagePanel;
-	int screenWidth;
-	int screenHeight;
+	private JFrame frame;
+	private LoadPanel loadImagePanel;
+	private int screenWidth;
+	private int screenHeight;
 	
 	public Window(){
 		frame = new JFrame();
