@@ -7,6 +7,8 @@ public class LoadPanel {
 		JPanel panel = new JPanel();
 		panel.setBackground(Color.gray);
 		panel.setLayout(null);
+		panel.setVisible(false);
+		panel.setVisible(true);
 		return panel;
 	}
 

@@ -7,9 +7,9 @@ import javax.swing.JTextField;
 import javax.swing.JButton;
 
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.util.Scanner;
+
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class Window {
 
@@ -17,74 +17,51 @@ public class Window {
 	private JPanel loadPanel;
 	private JLabel filePathLabel;
 	private JTextField filePathField;
-	private JButton loadImage;
-	private JLabel status;
-	private JPanel drawPanel;
-
-	private Space spc;
-	private String filePath;
+	private JButton loadPointsButton;
+	private JLabel statusLabel;
+	private DrawingPanel drawPanel;
 
 	public Window(){
-		spc = new Space();
-
 		frame = Frame.buildFrame();
 		loadPanel = LoadPanel.buildLoadPanel();
 		filePathLabel = FilePathLabel.buildFilePathLabel();
 		filePathField = FilePathField.buildFilePathField();
-		loadImage = LoadImageButton.buildLoadImageButton();
-		status = StatusLabel.buildStatusLabel();
-		drawPanel = DrawingPanel.buildDrawingPanel();
+		loadPointsButton = LoadPointsButton.buildLoadPointsButton();
+		statusLabel = StatusLabel.buildStatusLabel();
+		drawPanel = new DrawingPanel();
+		addComponents();
+		setLoadPointsButton();
 		frame.setVisible(true);
 	}
 
 	public void addComponents() {
 		frame.add(loadPanel);
-		frame.add(drawPanel);
+		loadPanel.add(drawPanel);
 		loadPanel.add(filePathLabel);
 		loadPanel.add(filePathField);
-		loadPanel.add(loadImage);
-		loadPanel.add(status);
+		loadPanel.add(loadPointsButton);
+		loadPanel.add(statusLabel);
 	}
 
-	// public void setLoadImageButton() {
-	// 	loadImage.addActionListener(new ActionListener() {
-	//
-	// 		public void actionPerformed(ActionEvent e) {
-	// 			if (new File(filePathField.getText()).exists()) {
-	// 				status.setText("Loading Image");
-	// 				loadImage(filePathField.getText());
-	// 			} else {
-	// 				status.setText("File doesn't exist at this file path");
-	// 			}
-	// 		}
-	// 	});
-	// }
+	public void setLoadPointsButton() {
+		loadPointsButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if (new File(filePathField.getText()).exists()) {
+					statusLabel.setText("Loading Points");
+					loadPoints();
+				} else {
+					statusLabel.setText("File doesn't exist at this file path");
+				}
+			}
+		});
+	}
 
-	// public void loadImage(String filePath) {
-	// 	spc.removeAll();
-	// 	addComponents();
-	// 	markAllPointsFromFile();
-	//
-	// 	status.setText("Complete");
-	// 	drawPanel.setVisible(false);
-	// 	drawPanel.setVisible(true);
-	// }
-	//
-	// public void markAllPointsFromFile() {
-	// 	int x = 0;
-	// 	int y = 0;
-	// 	Scanner input;
-	// 	try {
-	// 		input = new Scanner(new File(filePath));
-	// 		while (input.hasNext()) {
-	// 			x = Integer.valueOf(input.next());
-	// 			y = Integer.valueOf(input.next());
-	// 			spc.addPoint(x, y);
-	// 		}
-	// 		input.close();
-	// 	} catch (FileNotFoundException e) {
-	// 		System.out.println("File not found");
-	// 	}
-	// }
+	public void loadPoints() {
+		System.out.println("Loading");
+		drawPanel.markAllPointsFromFile(filePathField.getText());
+		drawPanel.setVisible(false);
+		drawPanel.setVisible(true);
+		statusLabel.setText("Complete");
+	}
 
 }

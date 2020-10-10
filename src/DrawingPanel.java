@@ -7,30 +7,59 @@ import java.awt.image.BufferedImage;
 import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 
-public class DrawingPanel {
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.util.Scanner;
 
-	public static JPanel buildDrawingPanel(){
-		JPanel panel = new JPanel();
-		panel.setBackground(Color.black);
-		return panel;
+import java.util.ArrayList;
+
+public class DrawingPanel extends JPanel {
+
+	private ArrayList<Point> points;
+	private String filePath;
+
+	public DrawingPanel(){
+		this.setBackground(Color.black);
+		this.setBounds(Globals.drawPanelX, Globals.drawPanelY, Globals.drawPanelWidth, Globals.drawPanelHeight);
+		points = new ArrayList<Point>();
+		filePath = "";
 	}
 
-	// public void paintComponent(Graphics g) {
-	// 	super.paintComponent(g);
-	// 	Point currentPoint;
-	// 	int index = 0;
-	// 	BufferedImage image;
-	// 	try {
-	// 		image = ImageIO.read(new File(filePath.substring(0, filePath.length()-7) + ".jpg"));
-	// 		g.drawImage(image, 0, 0, null);
-	// 	} catch (IOException e){
-	// 		e.printStackTrace();
-	// 	}
-	// 	while (index < spc.getPoints().size()) {
-	// 		currentPoint = spc.getPoints().get(index);
-	// 		g.setColor(Color.gray);
-	// 		g.drawOval(currentPoint.getX(), currentPoint.getY(), 1, 1);
-	// 		index++;
-	// 	}
-	// }
+	public void markAllPointsFromFile(String filePath) {
+		System.out.println("Marking");
+		this.filePath = filePath;
+		points.clear();
+		int x = 0;
+		int y = 0;
+		Scanner input;
+		try {
+			input = new Scanner(new File(filePath));
+			while (input.hasNext()) {
+				x = Integer.valueOf(input.next());
+				y = Integer.valueOf(input.next());
+				points.add(new Point(x, y));
+			}
+			System.out.println("MARKED");
+			input.close();
+		} catch (FileNotFoundException e) {
+			System.out.println("File not found");
+		}
+	}
+
+	public void paintComponent(Graphics g) {
+		super.paintComponent(g);
+		BufferedImage image;
+		// try {
+		// 	image = ImageIO.read(new File(filePath.substring(0, filePath.length()-7) + ".jpg"));
+		// 	g.drawImage(image, 0, 0, null);
+		// } catch (IOException e){
+		// 	e.printStackTrace();
+		// }
+		for(Point current : points) {
+			g.setColor(Color.orange);
+			g.drawOval(current.getX(), current.getY(), 1, 1);
+		}
+		// System.out.println("PAINTED");
+	}
 }
