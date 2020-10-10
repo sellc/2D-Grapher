@@ -1,3 +1,4 @@
+package Grapher;
 import java.util.ArrayList;
 
 public class Space {
