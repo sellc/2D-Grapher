@@ -1,6 +1,7 @@
 package Grapher;
 import java.awt.Toolkit;
 
+//Contains all application information which should be globally accessible
 public class Globals {
 
   //Project Details

@@ -14,11 +14,13 @@ import java.util.Scanner;
 
 import java.util.ArrayList;
 
+//Panel used to draw each point
 public class DrawingPanel extends JPanel {
 
-	private ArrayList<Point> points;
-	private String filePath;
+	private ArrayList<Point> points;	//All points to graph
+	private String filePath;	//Current file path
 
+	//Constructor
 	public DrawingPanel(){
 		this.setBackground(Color.black);
 		this.setBounds(Globals.drawPanelX, Globals.drawPanelY, Globals.drawPanelWidth, Globals.drawPanelHeight);
@@ -26,10 +28,11 @@ public class DrawingPanel extends JPanel {
 		filePath = "";
 	}
 
+	//Reads in each point from the user specified file
 	public void markAllPointsFromFile(String filePath) {
 		System.out.println("Marking");
 		this.filePath = filePath;
-		points.clear();
+		points.clear();	//Clear previous points
 		int x = 0;
 		int y = 0;
 		Scanner input;
@@ -47,15 +50,20 @@ public class DrawingPanel extends JPanel {
 		}
 	}
 
+	//Overrides paint method for the JPanel
+	//Loops through all points to paint
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
 		BufferedImage image;
-		// try {
-		// 	image = ImageIO.read(new File(filePath.substring(0, filePath.length()-7) + ".jpg"));
-		// 	g.drawImage(image, 0, 0, null);
-		// } catch (IOException e){
-		// 	e.printStackTrace();
-		// }
+		//Uncomment to draw the image too
+		/*
+		try {
+			image = ImageIO.read(new File(filePath.substring(0, filePath.length()-7) + ".jpg"));
+			g.drawImage(image, 0, 0, null);
+		} catch (IOException e){
+			e.printStackTrace();
+		}
+		*/
 		for(Point current : points) {
 			g.setColor(Color.orange);
 			g.drawOval(current.getX(), current.getY(), 1, 1);

@@ -11,6 +11,7 @@ import java.io.File;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
+//GUI for the application
 public class Window {
 
 	private JFrame frame;
@@ -21,6 +22,7 @@ public class Window {
 	private JLabel statusLabel;
 	private DrawingPanel drawPanel;
 
+	//Constructor
 	public Window(){
 		frame = Frame.buildFrame();
 		loadPanel = LoadPanel.buildLoadPanel();
@@ -34,6 +36,7 @@ public class Window {
 		frame.setVisible(true);
 	}
 
+	//Add all components to the frame and panels
 	public void addComponents() {
 		frame.add(loadPanel);
 		loadPanel.add(drawPanel);
@@ -43,6 +46,7 @@ public class Window {
 		loadPanel.add(statusLabel);
 	}
 
+	//Set the action listener of the load points button
 	public void setLoadPointsButton() {
 		loadPointsButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -56,6 +60,7 @@ public class Window {
 		});
 	}
 
+	//Load points from the file and draw to the drawing panel
 	public void loadPoints() {
 		System.out.println("Loading");
 		drawPanel.markAllPointsFromFile(filePathField.getText());
