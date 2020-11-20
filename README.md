@@ -1,7 +1,7 @@
 # 2D Grapher
 
 <h3>Overview</h3>
-A program to display points by plotting them using their (x y) coordinates. This program was originally a small component of a different project. After several projects required similar programs it was clear this needed to become a stand-alone program.
+This program displays points by plotting them using their (x y) coordinates. Originally the program was a small component of a different project. After several projects required similar programs it became clear this needed to become a stand-alone program.
 
 <h4>Unimplemented Functionality by Choice</h4>
 <ul>
